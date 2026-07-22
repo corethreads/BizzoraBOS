@@ -7,9 +7,9 @@ import (
 	"time"
 
 	dbmodel "bizzora/authentication/models/db_model"
-	erepository "bizzora/expenses/repository" // ADD THIS
+	erepository "bizzora/expenses/repository" 
 	salemodel "bizzora/sales/models/sale_model"
-	srepository "bizzora/sales/repository" // ADD THIS
+	srepository "bizzora/sales/repository" 
 	workermodel "bizzora/workers/models/workermodels/db_model"
 
 	"github.com/gin-gonic/gin"
@@ -79,27 +79,27 @@ func HandleWebSocket(
 			// Get revenue data (from repository)
 			totalRevenue, err := salesRepo.GetTotalRevenue(businessID)
 			if err != nil {
-				log.Printf("❌ Error fetching total revenue: %v", err)
+				log.Printf(" Error fetching total revenue: %v", err)
 				totalRevenue = 0
 			}
 
 			todayRevenue, todaySales, err := salesRepo.GetTodayRevenue(businessID)
 			if err != nil {
-				log.Printf("❌ Error fetching today revenue: %v", err)
+				log.Printf(" Error fetching today revenue: %v", err)
 				todayRevenue = 0
 				todaySales = 0
 			}
 
 			dailyRevenueData, err := salesRepo.GetDailyRevenue(businessID, 7)
 			if err != nil {
-				log.Printf("❌ Error fetching daily revenue: %v", err)
+				log.Printf(" Error fetching daily revenue: %v", err)
 				dailyRevenueData = []salemodel.DailyRevenue{}
 			}
 
 			// Get expense data (from repository)
 			totalExpenses, err := expenseRepo.GetTotalExpenses(businessID)
 			if err != nil {
-				log.Printf("❌ Error fetching total expenses: %v", err)
+				log.Printf("Error fetching total expenses: %v", err)
 				totalExpenses = 0
 			}
 
@@ -138,7 +138,7 @@ func HandleWebSocket(
 			data, _ := json.Marshal(initialUpdate)
 			client.send <- data
 
-			log.Printf("📊 Sent initial data: Revenue=$%.2f, Expenses=$%.2f,",
+			log.Printf("Sent initial data: Revenue=$%.2f, Expenses=$%.2f,",
 				totalRevenue, totalExpenses)
 		}()
 
